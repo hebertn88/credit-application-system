@@ -10,7 +10,7 @@ data class Customer(
     @Column(nullable = false)
     var lastName: String = "",
     @Column(nullable = false, unique = true)
-    val cpf: String,
+    var cpf: String = "",
     @Column(nullable = false, unique = true)
     var email: String = "",
     @Column(nullable = false)
@@ -19,7 +19,7 @@ data class Customer(
     @Embedded
     var address: Address = Address(),
     @Column(nullable = false)
-    var income: BigDecimal,
+    var income: BigDecimal = BigDecimal.ZERO,
     @Column(nullable = false)
     @OneToMany(fetch = FetchType.LAZY,
         cascade = [CascadeType.REMOVE, CascadeType.PERSIST],
