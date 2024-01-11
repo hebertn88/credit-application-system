@@ -5,6 +5,7 @@ import edu.hnasc.credit.application.system.repository.CreditRepository
 import edu.hnasc.credit.application.system.service.ICreditService
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.RuntimeException
 
 @Service
 class CreditService(
@@ -21,7 +22,8 @@ class CreditService(
 
     override fun findAllByCustomer(customerId: Long): List<Credit> = creditRepository.findAllByCustomerId(customerId)
 
-    override fun findByCreditCode(creditCode: UUID): Credit {
-        TODO("Not yet implemented")
+    override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
+        val credit = creditRepository.findByCreditCode(creditCode)?: throw RuntimeException("CreditCode $creditCode not found!")
+        return if (credit.customer?.id == customerId) credit else throw RuntimeException("Contact Admin")
     }
 }
