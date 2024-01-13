@@ -2,16 +2,31 @@ package edu.hnasc.credit.application.system.dto
 
 import edu.hnasc.credit.application.system.model.Address
 import edu.hnasc.credit.application.system.model.Customer
+import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.br.CPF
 import java.math.BigDecimal
 
 data class CustomerDto (
+    @field:NotEmpty(message = "Invalid input")
     val firstName: String,
+    @field:NotEmpty(message = "Invalid input")
     val lastName: String,
+    @field:CPF(message = "Invalid input")
     val cpf: String,
+    @field:NotNull(message = "Invalid input")
+    @field:DecimalMin(value = "0.01", message = "Invalid value" )
     val income: BigDecimal,
+    @field:Email(message = "Invalid input")
     val email: String,
+    @field:NotEmpty(message = "Invalid input")
     val password: String,
+    @field:NotEmpty(message = "Invalid input")
     val zipCode: String,
+    @field:NotEmpty(message = "Invalid input")
     val street: String
 ) {
     fun toEntity(): Customer = Customer(
